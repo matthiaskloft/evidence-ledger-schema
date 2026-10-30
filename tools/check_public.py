@@ -7,7 +7,7 @@ Fails when a tracked or staged file
 - lies under ledger/ (the private ledgers),
 - is YAML or JSON with quote, quote_prefix, quote_suffix or quote_focus fields,
 - contains an email address other than a noreply address,
-- (--staged only) contains a quote, prefix, suffix or focus from ledger/*.yaml, compared after
+- (--staged only) contains a quote, prefix, suffix or focus from a ledger/ file, compared after
   normalization n1.
 Findings name the file and record, never the quoted text.
 """
@@ -82,16 +82,17 @@ def has_quote_fields(text: str) -> bool:
 
 def ledger_quotes() -> list[tuple[str, str]]:
     quotes: list[tuple[str, str]] = []
-    for path in sorted(glob.glob("ledger/*.yaml") + glob.glob("ledger/*.jsonl")):
+    for path in sorted(glob.glob("ledger/*.yaml") + glob.glob("ledger/*.yml")
+                       + glob.glob("ledger/*.json") + glob.glob("ledger/*.jsonl")):
         with open(path, encoding="utf-8") as f:
             if path.endswith(".jsonl"):
                 records: Any = [json.loads(line) for line in f if line.strip()]
             else:
-                records = yaml.safe_load(f) or []
+                records = yaml.safe_load(f) or []  # YAML also parses JSON
             if isinstance(records, dict):  # {"ledger": header, "records": [...]}
                 records = records.get("records") or []
             for rec in records:
-                if "ledger" in rec:  # JSON Lines header line
+                if not isinstance(rec, dict) or "ledger" in rec:  # JSON Lines header line
                     continue
                 for field in sorted(QUOTE_KEYS):
                     norm = normalize(rec.get(field) or "")
