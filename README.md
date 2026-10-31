@@ -5,7 +5,7 @@
 
 **A simple, tool-independent format that links every claim in a text to the evidence that supports it.**
 
-## Why
+## Transparent citations with LLMs
 
 With LLMs, citing is often unstructured and differs between tools. As a result, it is often unclear where a statement comes from, and citations are hard to check.
 
