@@ -66,7 +66,7 @@ How the source was found and read.
 | Field | Required | Values | Meaning |
 | --- | --- | --- | --- |
 | `retrieved_via` | yes | `zotero-fulltext`, `pdf`, `web`, `human`, `memory` | How the quote was obtained. `memory` flags a quote that was not read from the source. |
-| `found_via.route` | no | `memory`, `web_search`, `database_search`, `cited_in`, `coauthor`, `other` | How the source was found. |
+| `found_via.route` | if `found_via` is present | `memory`, `web_search`, `database_search`, `cited_in`, `coauthor`, `other` | How the source was found. |
 | `found_via.source` | no | text | The citing work, search query, or a note. |
 
 ## Provenance
