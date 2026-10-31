@@ -52,7 +52,7 @@ One record links one claim to one source:
 | Evidence | `locator`, `quote`, `quote_hash`, `relation`, `justification` |
 | Provenance | who wrote the record, a person or an agent, which model, and when |
 
-A ledger is a list of records, with an optional header, kept next to the text it covers. It can be written as JSON, JSON Lines or YAML.
+The [field reference](docs/fields.md) explains every field. A ledger is a list of records, with an optional header, kept next to the text it covers. It can be written as JSON, JSON Lines or YAML.
 
 ## Getting started
 
@@ -65,6 +65,7 @@ Quotes from copyrighted sources belong in a private ledger. A public ledger shou
 ## Learn more
 
 - [Motivation](docs/motivation.md): the full argument, use cases, and where the fields come from
+- [Field reference](docs/fields.md): every field, grouped by claim, source, evidence, and provenance
 - [Format](docs/format.md): header, file formats, hashing, and exports in detail
 - [Checking a ledger](docs/checking-a-ledger.md): how to build your own checks
 - [Versions](docs/versioning.md) and [changelog](CHANGELOG.md)

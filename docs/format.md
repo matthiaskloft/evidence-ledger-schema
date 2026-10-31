@@ -12,7 +12,7 @@ This document describes the format in detail. The [README](../README.md) gives a
 
 **File format.** The schema is format-neutral: it validates parsed records, so a ledger can be JSON, JSON Lines or YAML. When writing YAML, quote dates (`date: "2026-10-30"`), since unquoted dates are not read as text.
 
-Each record contains:
+Each record contains the groups below. The [field reference](fields.md) lists every field.
 
 - **Claim:** `claim`, `claim_id` (records backing the same claim share it), `claim_type`, and an `anchor` that finds the claim in the work (an ID marker, or the exact text).
 - **Source:** a citation `key`, and a `doi`, `isbn` or `url` (or `no_identifier_reason`).
