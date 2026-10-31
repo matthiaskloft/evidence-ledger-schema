@@ -132,13 +132,13 @@ The last row is where n1 and n2 differ. Casefolding U+01F0 gives "j" plus a comb
 **Rules.**
 
 1. List every citation in the manuscript with its key, in whatever syntax the manuscript uses (for example `\cite{key}` or `[@key]`).
-2. Every cited key must match the `key` of at least one record that is not withdrawn.
+2. Every citation occurrence must have a record that is not withdrawn, has the same `key`, and whose `anchor` locates the claim at that place in the text (check 3). A matching key elsewhere is not enough: one source cited for two claims needs two records.
 3. Every record `key` should be cited in the manuscript. A record whose key is never cited is stale.
 4. A record with `contestable: true`, which is the default, must have `locator`, `quote`, `quote_hash` and `justification`. Check 1 already enforces this. Repeat it only if you skip check 1.
 5. A record with `contestable: false` must have `contestable_reason`. A person should read these reasons. "Uncontested background" is the intended use. Do not accept a reason for a claim that a reader could dispute.
 6. List records with `withdrawn` set separately, and leave them out of rule 2.
 
-**Failure.** A cited key with no record, a stale record, a missing evidence field, or a weak non-contestable reason. Which reasons are weak is the author's judgement.
+**Failure.** A citation with no record anchored at its claim, a stale record, a missing evidence field, or a weak non-contestable reason. Which reasons are weak is the author's judgement.
 
 ## 5. Quote check
 
