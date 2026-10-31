@@ -35,3 +35,5 @@ Universities could use the ledger in two ways. First, supervisors could require 
 ## Roots
 
 The idea follows Moravcsik's *active citation* (2014): contestable claims come with the evidence that supports them. The README lists the sources for the individual fields.
+
+Many tools for checking citations already exist or are in development. With the ledger, we wanted to make a focused contribution to our own community, psychological science. However, the schema does not depend on a discipline, and other fields can use it as well.

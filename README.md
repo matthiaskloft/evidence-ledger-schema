@@ -4,7 +4,7 @@ A standalone JSON Schema format for records linking a claim in a work to its sou
 
 **Current release: [schema v0.4.0](https://github.com/matthiaskloft/evidence-ledger-schema/releases/tag/schema-v0.4.0)** ([versioning](docs/versioning.md)).
 
-The [evidence-ledger-mcp server](https://github.com/matthiaskloft/evidence-ledger-mcp) is a separate implementation with its own versions and MIT licence. This schema is licensed under **CC BY 4.0**, with attribution to Matthias Kloft; see [LICENSE](LICENSE). The licence does not cover ledger contents or third-party source material.
+The [evidence-ledger-mcp server](https://github.com/matthiaskloft/evidence-ledger-mcp) is a separate implementation with its own versions and MIT licence. This schema is licensed under **CC BY 4.0**, with attribution to Matthias Kloft and Julian P. Irmer; see [LICENSE](LICENSE). The licence does not cover ledger contents or third-party source material.
 
 ## Purpose
 
