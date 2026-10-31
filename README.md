@@ -66,7 +66,7 @@ Quotes from copyrighted sources belong in a private ledger. A public ledger shou
 
 - [Motivation](docs/motivation.md): the full argument, use cases, and where the fields come from
 - [Field reference](docs/fields.md): every field, grouped by claim, source, evidence, and provenance
-- [Format](docs/format.md): header, file formats, hashing, and exports in detail
+- [Ledger files](docs/ledger-files.md): file shapes, quote hashing, and exports
 - [Checking a ledger](docs/checking-a-ledger.md): how to build your own checks
 - [Versions](docs/versioning.md) and [changelog](CHANGELOG.md)
 
