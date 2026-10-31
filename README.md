@@ -8,9 +8,19 @@ The [evidence-ledger-mcp server](https://github.com/matthiaskloft/evidence-ledge
 
 ## Purpose
 
-When an LLM agent or a person adds a citation, the ledger records what is claimed, which source backs it, where in the source, a short quote, and why the citation is needed. Co-authors, scripts or a second model can then check each citation against its source later, whichever tool wrote the work. The idea follows Moravcsik's *active citation* (2014): contestable claims come with the evidence that supports them.
+With LLMs, citing is often unstructured and differs between tools. As a result, it is often unclear where a statement comes from, and citations are hard to check.
 
-The ledger makes citations transparent. It is meant for academics who write with LLMs. Co-authors and reviewers can then check each citation. Beyond single projects, we think journals and universities could adopt the ledger as a standard. For example, supervisors could require a ledger with a thesis and use it to check the student's citations.
+Many journals and universities ask authors to disclose where an LLM helped write a text. We think the more important question is whether each claim is backed by its source. The ledger answers both. For every citation, it records the claim, the source, the supporting passage with a short quote, and why the source is cited. It also notes whether a person or an agent wrote the record.
+
+This makes citations transparent. Co-authors, reviewers or a script can check each claim against its source, whichever tool wrote the text. If a text meets this standard, it matters less who drafted it. The author stays responsible for every claim.
+
+**Use cases**
+
+- **Authors** check their own manuscripts. Every citation can be traced to its source, whether a journal asks for it or not.
+- **Journals** could require a ledger with a submission, either this schema or their own standard built on it.
+- **Universities** could ask for a ledger with a thesis, so supervisors can check the citations. The schema can also be used in teaching, to discuss transparent research with AI.
+
+The idea follows Moravcsik's *active citation* (2014): contestable claims come with the evidence that supports them. See [Motivation](docs/motivation.md) for the full argument.
 
 ## The format
 
