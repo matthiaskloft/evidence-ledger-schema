@@ -2,13 +2,15 @@
 
 A standalone JSON Schema format for records linking a claim in a work to its source evidence. Any tool can produce or validate a ledger; the schema does not require an MCP server.
 
-**Current release: [schema v0.4.0](https://github.com/matthiaskloft/evidence-ledger-schema/releases/tag/schema-v0.4.0).**
+**Current release: [schema v0.4.0](https://github.com/matthiaskloft/evidence-ledger-schema/releases/tag/schema-v0.4.0)** ([versioning](docs/versioning.md)).
 
 The [evidence-ledger-mcp server](https://github.com/matthiaskloft/evidence-ledger-mcp) is a separate implementation with its own versions and MIT licence. This schema is licensed under **CC BY 4.0**, with attribution to Matthias Kloft; see [LICENSE](LICENSE). The licence does not cover ledger contents or third-party source material.
 
 ## Purpose
 
 When an LLM agent or a person adds a citation, the ledger records what is claimed, which source backs it, where in the source, a short quote, and why the citation is needed. Co-authors, scripts or a second model can then check each citation against its source later, whichever tool wrote the work. The idea follows Moravcsik's *active citation* (2014): contestable claims come with the evidence that supports them.
+
+The ledger is written for academics: authors and co-authors who write with LLMs can keep every citation checkable. Theses, journals or publishers can also adopt it as a citation standard, or build their own standard on it.
 
 ## The format
 
@@ -67,12 +69,6 @@ A minimal record:
 ```
 
 Quotes from copyrighted sources belong in a private ledger. A public ledger should keep only locators and hashes.
-
-## Versions
-
-Each release is published as a `schema-vX.Y.Z` tag with a GitHub release; see [CHANGELOG.md](CHANGELOG.md). Releases `schema-v0.2.0` to `schema-v0.4.0` were first published in the evidence-ledger-mcp repository and are preserved here unchanged.
-
-The `$id` of schema v0.4.0 keeps its original namespace. It is an identifier, not a hosted endpoint: retrieve the schema from the versioned tag.
 
 ## Where the fields come from
 
