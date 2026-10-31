@@ -10,7 +10,7 @@ The [evidence-ledger-mcp server](https://github.com/matthiaskloft/evidence-ledge
 
 When an LLM agent or a person adds a citation, the ledger records what is claimed, which source backs it, where in the source, a short quote, and why the citation is needed. Co-authors, scripts or a second model can then check each citation against its source later, whichever tool wrote the work. The idea follows Moravcsik's *active citation* (2014): contestable claims come with the evidence that supports them.
 
-The ledger makes citations transparent. It is meant for academics who write with LLMs. Co-authors and reviewers can then check each citation. Theses and journals could also adopt it as a standard or build their own on it.
+The ledger makes citations transparent. It is meant for academics who write with LLMs. Co-authors and reviewers can then check each citation. Beyond single projects, we think journals and universities could adopt the ledger as a standard. For example, supervisors could require a ledger with a thesis and use it to check the student's citations.
 
 ## The format
 
