@@ -30,7 +30,7 @@ What is claimed, and where in the text.
 
 ## Source
 
-Which work is cited.
+Which work is cited. A source can be any document, such as an article, a book, an internal report, or a preregistration. Use `no_identifier_reason` when it has no DOI, ISBN, or URL.
 
 | Field | Required | Values | Meaning |
 | --- | --- | --- | --- |
@@ -86,7 +86,7 @@ Who wrote the record, and when.
 | Field | Required | Values | Meaning |
 | --- | --- | --- | --- |
 | `withdrawn` | no | text | Set when the authors withdraw the citation: the reason. Review status is kept in a review log, not here. |
-| `evidence_kind` | no | `literature`, `analysis_output` | Reserved for claims about the authors' own results. |
+| `evidence_kind` | no | `literature`, `analysis_output` | Reserved for claims about the authors' own analyses, planned for a later version. |
 | `derived_from` | no | list of text | Reserved for the authors' own inferences. |
 
 ## Ledger header

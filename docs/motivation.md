@@ -12,6 +12,8 @@ Many journals and universities respond to LLMs with disclosure rules. Authors sh
 
 The evidence ledger addresses this question directly. For every citation, it records the claim, the source, the supporting passage with a short quote, and why the source is cited. Hence, each claim can be checked against its evidence.
 
+A source does not have to be a published article. Any document with citable text can back a claim, such as a book, an internal report, a protocol, or a preregistration. Claims about the authors' own analyses, such as a statistical result, are planned for a later version of the schema.
+
 Disclosure follows as a side effect. Every record notes whether a person or an agent wrote it, and which model was used. The ledger therefore attributes LLM use per citation, which is more precise than a single statement for the whole text.
 
 ## Responsibility

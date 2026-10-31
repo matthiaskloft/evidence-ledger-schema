@@ -11,7 +11,7 @@
 
 With LLMs, citing is often unstructured and differs between tools. As a result, it is often unclear where a statement comes from, and citations are hard to check.
 
-Many journals and universities ask authors to disclose where an LLM helped write a text. We think the more important question is whether each claim is backed by its source. The ledger answers both. For every citation, it records the claim, the source, the supporting passage with a short quote, and why the source is cited. It also notes whether a person or an agent wrote the record.
+Many journals and universities ask authors to disclose where an LLM helped write a text. We think the more important question is whether each claim is backed by its source. The ledger answers both. For every citation, it records the claim, the source, the supporting passage with a short quote, and why the source is cited. It also notes whether a person or an agent wrote the record. A source can be any document, such as an article, a book, an internal report, or a preregistration.
 
 This makes citations transparent. Co-authors, reviewers or a script can check each claim against its source, whichever tool wrote the text. If a text meets this standard, it matters less who drafted it. The author stays responsible for every claim.
 
