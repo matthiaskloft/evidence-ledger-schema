@@ -4,7 +4,7 @@ This guide is for authors who want to check an evidence ledger with tools they w
 
 To use it, give this file and your ledger to a coding agent (for example Claude Code) and ask it to write the checks you need. Read the code it writes before you run it. The checks are independent: build only the ones you want.
 
-The [evidence-ledger-mcp](https://github.com/matthiaskloft/evidence-ledger-mcp) server is an optional ready-made implementation. Nothing here depends on it.
+Nothing here depends on a particular tool. Some optional tools are listed at the end.
 
 ## Safety first
 
@@ -213,3 +213,10 @@ Example line:
 ```text
 R-0007  check 2a  quote_hash differs from the recomputed hash. Re-copy the quote or recompute the hash.
 ```
+
+## Optional tools
+
+These tools are examples, not requirements. Every check above can be built without them.
+
+- [evidence-ledger-mcp](https://github.com/matthiaskloft/evidence-ledger-mcp): writes and checks ledgers.
+- [zotero-fulltext-mcp](https://github.com/matthiaskloft/zotero-fulltext-mcp): searches the full text of a Zotero library, which helps with the quote check.
