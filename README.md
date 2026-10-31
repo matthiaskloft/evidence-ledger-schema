@@ -3,6 +3,8 @@
 [![Release](https://img.shields.io/github/v/release/matthiaskloft/evidence-ledger-schema?filter=schema-v*&label=schema)](https://github.com/matthiaskloft/evidence-ledger-schema/releases)
 [![Licence: CC BY 4.0](https://img.shields.io/badge/licence-CC%20BY%204.0-blue)](LICENSE)
 
+> **Under active development.** The schema may change in breaking ways between versions until v1.0. Pin the version you use.
+
 **A simple, tool-independent format that links every claim in a text to the evidence that supports it.**
 
 ## Transparent citations with LLMs
