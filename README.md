@@ -7,6 +7,10 @@
 
 **A simple, tool-independent format that links every claim in a text to the evidence that supports it.**
 
+## What is a ledger?
+
+A ledger is a running record, like an accounting book, where each entry is written down once and can be checked later. An evidence ledger is such a record for claims and their evidence: one entry for each claim in a text, saying which source backs it and where. A source can be any document, such as an article, a book, an internal report, a protocol or a dataset description.
+
 ## Transparent citations with LLMs
 
 With LLMs, citing is often unstructured and differs between tools. As a result, it is often unclear where a statement comes from, and citations are hard to check.
