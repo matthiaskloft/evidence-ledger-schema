@@ -19,7 +19,7 @@ What is claimed, and where in the text.
 | `claim_id` | yes | `C-` plus four or more digits | ID of the claim. Records backing the same claim share it. |
 | `claim` | yes | text | The claim, in words. |
 | `claim_type` | yes | `empirical`, `definition`, `method`, `background` | Kind of claim. Descriptive only. |
-| `contestable` | yes | `true` or `false` | `true` means the claim needs full evidence: `locator`, `quote`, `quote_hash`, and `justification`. Use `true` unless the claim is clearly uncontested. |
+| `contestable` | yes | `true` or `false` | `true` means the claim needs full evidence: `locator`, `quote`, `quote_hash`, and `justification`. Use `true` unless the claim is clearly uncontested. Empirical and theoretical claims both count, for example a claim that another theory assumes something different. |
 | `contestable_reason` | if `contestable` is `false` | text | Why the claim needs no full evidence. |
 | `importance` | no | `critical`, `substantial`, `supporting` | How much the work depends on the claim. Omitted means not assessed. Records with the same `claim_id` must agree. |
 | `importance_reason` | no, needs `importance` | text | Why the work depends on the claim to this degree. |
