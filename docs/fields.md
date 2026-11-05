@@ -2,7 +2,28 @@
 
 This document lists every field of a record and of the ledger header. The [schema](../evidence-ledger.schema.json) is the normative source. [Ledger files](ledger-files.md) explains file shapes, quote hashing, and exports.
 
-"Required" means required in every record. "If contestable" means required when `contestable` is `true`. Bibliographic identifier requirements apply to reference records only; analysis and code records instead require their artifact objects.
+## Required and optional fields
+
+**Many fields are optional. You do not need to populate the entire field reference or example table.** Omit unused optional fields; an empty string or `null` is not a substitute unless the field explicitly permits it.
+
+Every record requires these ten top-level fields: `id`, `claim_id`, `claim`, `claim_type`, `contestable`, `anchor`, `key`, `relation`, `retrieved_via`, and `provenance`. Additional requirements depend on the record: for example, contestable claims require excerpts and hashes, references require an identifier or a reason for its absence, and analysis/code records require their corresponding artifact object.
+
+Read the **Required** column as follows:
+
+| Entry | Meaning |
+| --- | --- |
+| `yes` | Required in the record, or within its containing object when that object is present. |
+| `no` | Optional; omit it when it adds no useful information. |
+| `if …`, `with …`, or `for … only` | Required or allowed under the stated condition. |
+| `no, needs …` | Optional, but including it also requires the named field. |
+| `one of …` | At least one of the listed alternatives is required in that context. |
+| `unless url` / `instead of path` | Supply exactly one of `path` or `url` in that object. |
+
+An optional object can have required children: `analysis.script` is optional, but including it requires a `path` or `url`. The ledger header is optional too; `schema_version` and `work` are required only when a header is included.
+
+For example, you can omit `evidence_type` for a reference record, `importance` when unassessed, and `note` when there is nothing to add. Omission of `evidence_type` means `reference`; it does not make other required fields optional. In particular, `contestable` must be supplied even though its schema annotation gives a default of `true`.
+
+"If contestable" means required when `contestable` is `true`. Bibliographic identifier requirements apply to reference records only; analysis and code records instead require their artifact objects.
 
 ## Record
 
@@ -150,3 +171,94 @@ derived_from: [R-0001, R-0002]
 This is a partial record illustrating the links; the usual claim, report, excerpt, and provenance fields are still required. The values are record IDs in the same ledger, not file paths, citation keys, or claim IDs. Use `analysis.report` and `analysis.script` to locate the output and generating code. Merely citing a method or discussing related work does not make it an input to the analysis.
 
 The field is optional and currently available only for `analysis_output`. Omission or an empty list means dependencies have not been recorded. IDs must be unique and resolve to existing records; self references and cycles are invalid. These links describe a dependency and do not prove that the script actually used it.
+
+## Example values for every field
+
+All values below are invented illustrations, not source evidence or resolvable citations. The rows show individual fields, not one record to copy: reference, analysis, and code fields belong to different evidence types, and `path` and `url` are alternatives. Object rows show their structure; the following rows illustrate every nested field. `HASH` stands for a computed 64-character lowercase SHA-256 digest and must be replaced before validation. `COMMIT` likewise stands for an actual pinned repository commit.
+
+### Record fields
+
+| Field | Example value | Context |
+| --- | --- | --- |
+| `id` | `R-0003` | This record's ID. |
+| `claim_id` | `C-0002` | Shared by records about the same claim. |
+| `claim` | `The estimated treatment effect was -0.25.` | Analysis claim. |
+| `claim_type` | `empirical` | Describes the claim. |
+| `contestable` | `true` | Requires full evidence. |
+| `contestable_reason` | `Uncontested background terminology.` | Alternative example for a record with `contestable: false`. |
+| `importance` | `critical` | The work depends on this claim. |
+| `importance_reason` | `The main conclusion depends on this estimate.` | Explains the assessment. |
+| `anchor` | `{exact: "The estimated treatment effect was -0.25."}` | Location in the manuscript. |
+| `anchor.marker` | `claim-treatment-effect` | A marker placed next to the claim. |
+| `anchor.exact` | `The estimated treatment effect was -0.25.` | Exact manuscript text. |
+| `anchor.prefix` | `In our fitted model, ` | Text immediately before the exact anchor. |
+| `anchor.suffix` | ` We next assessed uncertainty.` | Text immediately after it. |
+| `key` | `treatment-analysis` | Local analysis identifier; use a citation key for references. |
+| `doi` | `10.12345/example` | Illustrative syntax only; reference identifier. |
+| `isbn` | `978-0-00-000000-2` | Invented illustrative book identifier. |
+| `url` | `https://example.org/manual/v1/` | Reference URL or optional artifact archive metadata. |
+| `no_identifier_reason` | `Internal report with no public identifier.` | Alternative to DOI, ISBN, or URL for a reference. |
+| `zotero_link` | `zotero://select/library/items/ABCD1234` | Illustrative local library link. |
+| `locator` | `{page: 4, table: "2"}` | Reference location; artifact records use nested locators instead. |
+| `locator.page` | `4` | Reference page. |
+| `locator.section` | `Results` | Reference section. |
+| `locator.figure` | `1b` | Reference figure. |
+| `locator.table` | `2` | Reference table. |
+| `locator.chunk` | `{attachment: ABCD1234, index: 7, sha256: HASH}` | Optional reference lookup hint; removed from exports. |
+| `locator.chunk.attachment` | `ABCD1234` | Attachment key. |
+| `locator.chunk.index` | `7` | Zero-based index. |
+| `locator.chunk.sha256` | `HASH` | Hash for the indexed chunk. |
+| `quote` | `estimate = -0.25` | Exact result excerpt. |
+| `quote_prefix` | `Treatment model: ` | Exact source text immediately before the excerpt, if present. |
+| `quote_suffix` | `; standard error = 0.08` | Exact source text immediately after it, if present. |
+| `quote_focus` | `-0.25` | One whole whitespace-delimited word in this quote. |
+| `quote_hash` | `sha256-n2:HASH` | Compute from the normalized full quote, not the file. |
+| `relation` | `supports` | How this evidence relates to the claim. |
+| `justification` | `The located result gives the claimed estimate.` | Explains the support without copying source text. |
+| `note` | `Check the sensitivity analysis before submission.` | Author comment, not source text. |
+| `retrieved_via` | `analysis_output` | For direct inspection of this result. |
+| `found_via` | `{route: coauthor, source: "Suggested during methods review"}` | Discovery metadata. |
+| `found_via.route` | `coauthor` | How the source was found. |
+| `found_via.source` | `Suggested during methods review` | Discovery context. |
+| `provenance` | `{by_type: human, by: "Example author", date: "2026-11-05"}` | Who wrote the record. |
+| `provenance.by_type` | `human` | Alternatively `agent`. |
+| `provenance.by` | `Example author` | Person or agent tool name. |
+| `provenance.model` | `example-model-v1` | Required for `by_type: agent`; illustrative model label only. |
+| `provenance.date` | `"2026-11-05"` | Quoted date string. |
+| `provenance.manuscript_rev` | `draft-3` | Manuscript revision. |
+| `withdrawn` | `Superseded after correcting the input data.` | Only on a withdrawn record. |
+| `evidence_type` | `analysis_output` | Alternatives: `reference` (also the omission default) and `source_code`. |
+| `analysis` | `{report: {path: reports/treatment.html, sha256: HASH, locator: "Table 2"}}` | Analysis-only object. |
+| `analysis.report` | `{path: reports/treatment.html, sha256: HASH, locator: "Table 2"}` | Primary evidence artifact. |
+| `analysis.report.path` | `reports/treatment.html` | Local report; alternative to its URL. |
+| `analysis.report.url` | `https://example.org/archive/v1/treatment.html` | Remote report; alternative to its path. |
+| `analysis.report.sha256` | `HASH` | Hash of the complete report's exact bytes. |
+| `analysis.report.locator` | `Table 2, treatment row, estimate column` | Result within the report. |
+| `analysis.script` | `{path: analysis/treatment.py, locator: "estimate_treatment, lines 42–48"}` | Optional generating script. |
+| `analysis.script.path` | `analysis/treatment.py` | Local script; alternative to its URL. |
+| `analysis.script.url` | `https://github.com/example/project/blob/COMMIT/analysis/treatment.py` | Remote script at a pinned revision. |
+| `analysis.script.sha256` | `HASH` | Optional exact file hash. |
+| `analysis.script.locator` | `estimate_treatment, lines 42–48` | Optional function, cell, or line range. |
+| `source_code` | `{path: src/model.py, sha256: HASH, locator: "fit_model, lines 42–48"}` | Alternative evidence object for `evidence_type: source_code`. |
+| `source_code.path` | `src/model.py` | Local code; alternative to its URL. |
+| `source_code.url` | `https://github.com/example/project/blob/COMMIT/src/model.py` | Remote code at a pinned revision. |
+| `source_code.sha256` | `HASH` | Hash of the code file's raw contents, not the GitHub page. |
+| `source_code.locator` | `fit_model, lines 42–48` | Symbol and line range. |
+| `derived_from` | `[R-0001, R-0002]` | Analysis dependencies; those records must exist in this ledger. |
+
+### Ledger header fields
+
+These examples describe a masked export. In a working private ledger, omit `level` and `max_words`. Field names are relative to the header, which is stored under `ledger` in the file wrapper.
+
+| Field | Example value | Context |
+| --- | --- | --- |
+| `schema_version` | `"0.5.0"` | Version used to validate the records. |
+| `work` | `{title: "Treatment study", type: manuscript, location: manuscript.qmd}` | Work covered by the ledger. |
+| `work.title` | `Treatment study` | Work title. |
+| `work.type` | `manuscript` | Kind of work. |
+| `work.location` | `manuscript.qmd` | File, repository, or URL of the work. |
+| `description` | `Evidence for the treatment study manuscript.` | Ledger description. |
+| `created` | `"2026-11-05"` | Quoted date string. |
+| `notes` | `Prepared for co-author review.` | Ledger comment, never source text. |
+| `level` | `masked` | Export level. |
+| `max_words` | `10` | Masked quote budget; also permits `null` for default masking. |
