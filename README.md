@@ -62,7 +62,7 @@ A ledger is a list of records, with an optional header, kept next to the text it
 
 ## Analysis and implementation evidence
 
-Schema v0.5.0 also supports analysis results and source code. Optional `evidence_type` selects what supports the claim: `reference` (the default, including official documentation), `analysis_output` (a computed or observed result), or `source_code` (the implementation itself). Choose by the evidence's role, regardless of file format. Existing server releases may support only earlier schema versions.
+Schema v0.5.1 also supports analysis results and source code, introduced in v0.5.0. Optional `evidence_type` selects what supports the claim: `reference` (the default, including official documentation), `analysis_output` (a computed or observed result), or `source_code` (the implementation itself). Choose by the evidence's role, regardless of file format. Existing server releases may support only earlier schema versions.
 
 This invented analysis record points to a result file containing exactly `estimate = -0.25` followed by a newline. Prefer a rendered report when available; record the script separately:
 

@@ -2,6 +2,12 @@
 
 Schema releases are independent of MCP server releases and use `schema-vX.Y.Z` tags.
 
+## [0.5.1] - 2026-11-05
+
+- Add example-value tables for every record and header field, including nested fields.
+- Clarify optional and conditional fields in the README and field reference, including required children of optional objects and omission versus empty values.
+- Update the schema identifier and title for this patch release; validation rules are unchanged from v0.5.0.
+
 ## [0.5.0] - 2026-11-05
 
 - Replace reserved `evidence_kind` with optional `evidence_type`: `reference` (default), `analysis_output`, or `source_code`. Choose by the supporting evidence's role, regardless of file format.

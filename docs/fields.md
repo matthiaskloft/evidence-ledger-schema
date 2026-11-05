@@ -252,7 +252,7 @@ These examples describe a masked export. In a working private ledger, omit `leve
 
 | Field | Example value | Context |
 | --- | --- | --- |
-| `schema_version` | `"0.5.0"` | Version used to validate the records. |
+| `schema_version` | `"0.5.1"` | Version used to validate the records. |
 | `work` | `{title: "Treatment study", type: manuscript, location: manuscript.qmd}` | Work covered by the ledger. |
 | `work.title` | `Treatment study` | Work title. |
 | `work.type` | `manuscript` | Kind of work. |

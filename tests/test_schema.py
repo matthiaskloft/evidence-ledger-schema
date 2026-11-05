@@ -48,7 +48,7 @@ class SchemaTests(unittest.TestCase):
     def test_masked_budget_header(self):
         validator = Draft202012Validator({"$ref": "#/$defs/header", "$defs": SCHEMA["$defs"]})
         header = {
-            "schema_version": "0.5.0",
+            "schema_version": "0.5.1",
             "work": {"title": "Example", "type": "manuscript"},
             "level": "masked",
             "max_words": 5,
