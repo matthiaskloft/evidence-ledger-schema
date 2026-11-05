@@ -60,7 +60,7 @@ The [field reference](docs/fields.md) explains every field. A ledger is a list o
 
 ## Analysis and implementation evidence
 
-The unreleased schema v0.5.0 in this checkout also supports analysis results and source code. Optional `evidence_type` selects what supports the claim: `reference` (the default, including official documentation), `analysis_output` (a computed or observed result), or `source_code` (the implementation itself). Choose by the evidence's role, regardless of file format. Existing server releases may support only earlier schema versions.
+Schema v0.5.0 also supports analysis results and source code. Optional `evidence_type` selects what supports the claim: `reference` (the default, including official documentation), `analysis_output` (a computed or observed result), or `source_code` (the implementation itself). Choose by the evidence's role, regardless of file format. Existing server releases may support only earlier schema versions.
 
 This invented analysis record points to a result file containing exactly `estimate = -0.25` followed by a newline. Prefer a rendered report when available; record the script separately:
 

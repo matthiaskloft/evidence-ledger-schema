@@ -4,7 +4,7 @@ Each release is published as a `schema-vX.Y.Z` tag with a GitHub release; see [C
 
 The `$id` of schema v0.4.0 keeps its original namespace. It is an identifier, not a hosted endpoint: retrieve the schema from the versioned tag.
 
-Version 0.5.0 uses this repository's versioned raw GitHub namespace for `$id`: `https://raw.githubusercontent.com/matthiaskloft/evidence-ledger-schema/schema-v0.5.0/evidence-ledger.schema.json`. It resolves when the release tag exists; until release, use the checked-out schema. No GitHub Pages deployment or release attachment is required.
+Version 0.5.0 uses this repository's versioned raw GitHub namespace for `$id`: `https://raw.githubusercontent.com/matthiaskloft/evidence-ledger-schema/schema-v0.5.0/evidence-ledger.schema.json`. Retrieve the schema from that versioned URL or the release tag. No GitHub Pages deployment or release attachment is required.
 
 To migrate from v0.4.0, remove reserved `evidence_kind`; map `literature` to `evidence_type: reference` (or omit it). Convert reserved `analysis_output` records to the report structure and supply exact file hashes. Replace any free-form `derived_from` entries with record IDs and use it only for analysis records. Existing reference records without reserved fields remain valid. Change a private ledger's header to `0.5.0` only after all its records pass the new checks; do not bulk relabel older ledgers.
 
