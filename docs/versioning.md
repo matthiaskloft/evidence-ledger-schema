@@ -9,3 +9,5 @@ Version 0.5.0 uses this repository's versioned raw GitHub namespace for `$id`: `
 To migrate from v0.4.0, remove reserved `evidence_kind`; map `literature` to `evidence_type: reference` (or omit it). Convert reserved `analysis_output` records to the report structure and supply exact file hashes. Replace any free-form `derived_from` entries with record IDs and use it only for analysis records. Existing reference records without reserved fields remain valid. Change a private ledger's header to `0.5.0` only after all its records pass the new checks; do not bulk relabel older ledgers.
 
 Server maintainers must explicitly update their pinned schema and implementation before accepting the new evidence types. A schema update alone does not add server support.
+
+Version 0.5.1 is a documentation patch release with the same validation rules as v0.5.0. Its identifier is `https://raw.githubusercontent.com/matthiaskloft/evidence-ledger-schema/schema-v0.5.1/evidence-ledger.schema.json`. Existing v0.5.0 ledgers need no migration or header changes; keep using their pinned schema. New ledgers using the v0.5.1 schema should record `schema_version: "0.5.1"` in their header.
