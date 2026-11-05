@@ -2,6 +2,15 @@
 
 Schema releases are independent of MCP server releases and use `schema-vX.Y.Z` tags.
 
+## [0.5.0] - Unreleased
+
+- Replace reserved `evidence_kind` with optional `evidence_type`: `reference` (default), `analysis_output`, or `source_code`. Choose by the supporting evidence's role, regardless of file format.
+- Add report-first analysis artifacts with optional generating scripts, and code artifacts with exactly one local path or HTTPS URL, exact byte hashes, and locators. Reuse quote fields for result and code excerpts.
+- Allow an optional `analysis.script.locator` for a function, notebook cell, or line range in the generating script.
+- Define analysis dependencies in `derived_from` as unique record IDs, with cross-record existence and cycle checks.
+- Require bibliographic identifiers and top-level locators only for references; preserve common contestability and quote rules for all types.
+- Move the new schema identifier to this repository's versioned raw GitHub namespace. Document migration, artifact verification, exports, and downstream compatibility.
+
 ## [0.4.0] - 2026-10-30
 
 - Define n2 quote hashing: Unicode NFKC, casefold, NFKC again, then retain letters and digits. Legacy n1 hashes remain checkable.

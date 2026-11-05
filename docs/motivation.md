@@ -12,7 +12,7 @@ Many journals and universities respond to LLMs with disclosure rules. Authors sh
 
 The evidence ledger addresses this question directly. For every citation, it records the claim, the source, the supporting passage with a short quote, and why the source is cited. Hence, each claim can be checked against its evidence.
 
-A source does not have to be a published article. Any document with citable text can back a claim, such as a book, an internal report, a protocol, or a preregistration. Claims about the authors' own analyses, such as a statistical result, are planned for a later version of the schema.
+A source does not have to be a published article. Any document with citable text can back a claim, such as a book, an internal report, a protocol, or a preregistration. Schema v0.5.0 also covers claims backed by analysis results or source code. Analysis evidence prioritizes the rendered report and can link its generating script. Code evidence points to the implementation. The evidence type describes what supports the claim, regardless of file format.
 
 Disclosure follows as a side effect. Every record notes whether a person or an agent wrote it, and which model was used. The ledger therefore attributes LLM use per citation, which is more precise than a single statement for the whole text.
 
@@ -49,7 +49,7 @@ The table below lists the sources for the individual fields.
 | `relation` | Loosely follows CiTO, the Citation Typing Ontology (Peroni & Shotton, 2012); the mapping onto CiTO terms is not yet checked. `supports` and `contrasts` also match scite's citation classes (Nicholson et al., 2021) |
 | Claim, passage and justification in one record | Annotation for Transparent Inquiry links passages in a publication to annotations and underlying sources (Karcher & Weber, 2019) |
 | `provenance` | Records who asserted what and when, in the spirit of nanopublications (Groth et al., 2010); a record could be exported in that form |
-| `claim_id`, `importance`, `retrieved_via`, `found_via`, `quote_hash`, `no_identifier_reason`, `withdrawn` | Our own proposals; to the best of our knowledge they do not follow an earlier source |
+| `claim_id`, `importance`, `retrieved_via`, `found_via`, `quote_hash`, `no_identifier_reason`, `withdrawn`, `evidence_type`, `analysis`, `source_code`, `derived_from` | Our own proposals; to the best of our knowledge they do not follow an earlier source |
 
 #### References
 
