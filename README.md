@@ -56,7 +56,9 @@ One record links one claim to one source:
 | Evidence | `locator`, `quote`, `quote_hash`, `relation`, `justification` |
 | Provenance | who wrote the record, a person or an agent, which model, and when |
 
-The [field reference](docs/fields.md) explains every field. A ledger is a list of records, with an optional header, kept next to the text it covers. It can be written as JSON, JSON Lines or YAML.
+**You do not need to fill in every field.** Many fields are optional, including `evidence_type` (omission means `reference`), `importance`, `found_via`, and `note`. Other fields are required only in certain cases, such as `provenance.model` when an agent wrote the record. Omit unused optional fields rather than adding empty values. The [field reference](docs/fields.md#required-and-optional-fields) explains the requirements.
+
+A ledger is a list of records, with an optional header, kept next to the text it covers. It can be written as JSON, JSON Lines or YAML.
 
 ## Analysis and implementation evidence
 

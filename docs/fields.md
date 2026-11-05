@@ -2,7 +2,28 @@
 
 This document lists every field of a record and of the ledger header. The [schema](../evidence-ledger.schema.json) is the normative source. [Ledger files](ledger-files.md) explains file shapes, quote hashing, and exports.
 
-"Required" means required in every record. "If contestable" means required when `contestable` is `true`. Bibliographic identifier requirements apply to reference records only; analysis and code records instead require their artifact objects.
+## Required and optional fields
+
+**Many fields are optional. You do not need to populate the entire field reference or example table.** Omit unused optional fields; an empty string or `null` is not a substitute unless the field explicitly permits it.
+
+Every record requires these ten top-level fields: `id`, `claim_id`, `claim`, `claim_type`, `contestable`, `anchor`, `key`, `relation`, `retrieved_via`, and `provenance`. Additional requirements depend on the record: for example, contestable claims require excerpts and hashes, references require an identifier or a reason for its absence, and analysis/code records require their corresponding artifact object.
+
+Read the **Required** column as follows:
+
+| Entry | Meaning |
+| --- | --- |
+| `yes` | Required in the record, or within its containing object when that object is present. |
+| `no` | Optional; omit it when it adds no useful information. |
+| `if …`, `with …`, or `for … only` | Required or allowed under the stated condition. |
+| `no, needs …` | Optional, but including it also requires the named field. |
+| `one of …` | At least one of the listed alternatives is required in that context. |
+| `unless url` / `instead of path` | Supply exactly one of `path` or `url` in that object. |
+
+An optional object can have required children: `analysis.script` is optional, but including it requires a `path` or `url`. The ledger header is optional too; `schema_version` and `work` are required only when a header is included.
+
+For example, you can omit `evidence_type` for a reference record, `importance` when unassessed, and `note` when there is nothing to add. Omission of `evidence_type` means `reference`; it does not make other required fields optional. In particular, `contestable` must be supplied even though its schema annotation gives a default of `true`.
+
+"If contestable" means required when `contestable` is `true`. Bibliographic identifier requirements apply to reference records only; analysis and code records instead require their artifact objects.
 
 ## Record
 
