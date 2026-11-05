@@ -2,7 +2,7 @@
 
 Schema releases are independent of MCP server releases and use `schema-vX.Y.Z` tags.
 
-## [0.5.0] - Unreleased
+## [0.5.0] - 2026-11-05
 
 - Replace reserved `evidence_kind` with optional `evidence_type`: `reference` (default), `analysis_output`, or `source_code`. Choose by the supporting evidence's role, regardless of file format.
 - Add report-first analysis artifacts with optional generating scripts, and code artifacts with exactly one local path or HTTPS URL, exact byte hashes, and locators. Reuse quote fields for result and code excerpts.
