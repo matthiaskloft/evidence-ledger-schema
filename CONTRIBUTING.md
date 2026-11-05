@@ -29,3 +29,5 @@ python tools/check_public.py
 ```
 
 Schema releases are a `schema-vX.Y.Z` tag with a GitHub release; see [CHANGELOG.md](CHANGELOG.md).
+
+For v0.5.0 changes, test all three evidence types and the omitted-field reference default. Test local paths and HTTPS URLs, including rejection of missing or simultaneous locations. Keep artifact byte hashes distinct from normalized quote hashes. Verification and export rules must cover result and code excerpts as well as reference passages. Follow the migration and downstream coordination instructions in [AGENTS.md](AGENTS.md).

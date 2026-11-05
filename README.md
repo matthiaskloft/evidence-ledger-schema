@@ -9,7 +9,7 @@
 
 ## What is a ledger?
 
-A ledger is a running record, like an accounting book, where each entry is written down once and can be checked later. An evidence ledger is such a record for claims and their evidence: one entry for each claim in a text, saying which source backs it and where. A source can be any document, such as an article, a book, an internal report, a protocol or a dataset description.
+A ledger is a running record, like an accounting book, where each entry is written down once and can be checked later. An evidence ledger is such a record for claims and their evidence: one entry for each claim in a text, saying which source backs it and where. Evidence can come from a reference document, an analysis result, or source code.
 
 ## Transparent citations with LLMs
 
@@ -57,6 +57,39 @@ One record links one claim to one source:
 | Provenance | who wrote the record, a person or an agent, which model, and when |
 
 The [field reference](docs/fields.md) explains every field. A ledger is a list of records, with an optional header, kept next to the text it covers. It can be written as JSON, JSON Lines or YAML.
+
+## Analysis and implementation evidence
+
+The unreleased schema v0.5.0 in this checkout also supports analysis results and source code. Optional `evidence_type` selects what supports the claim: `reference` (the default, including official documentation), `analysis_output` (a computed or observed result), or `source_code` (the implementation itself). Choose by the evidence's role, regardless of file format. Existing server releases may support only earlier schema versions.
+
+This invented analysis record points to a result file containing exactly `estimate = -0.25` followed by a newline. Prefer a rendered report when available; record the script separately:
+
+```yaml
+- id: R-0002
+  claim_id: C-0002
+  claim: "The estimated treatment effect was -0.25."
+  claim_type: empirical
+  contestable: true
+  anchor: {exact: "The estimated treatment effect was -0.25."}
+  key: treatment-analysis
+  evidence_type: analysis_output
+  analysis:
+    report:
+      path: reports/treatment.txt
+      sha256: 3cc5d9484961a09579bdade694a64ca8d3b5ad66520dd930ec779d68bdee77bd
+      locator: "Line 1, estimate"
+    script:
+      path: analysis/treatment.py
+      locator: "estimate_treatment, lines 42–48"
+  quote: "estimate = -0.25"
+  quote_hash: sha256-n2:886d06ba0a15eef1bbd19c7eb9ffdd97669df64be2183ff8eec845ba692ee410
+  relation: supports
+  justification: "The result gives the claimed estimate."
+  retrieved_via: analysis_output
+  provenance: {by_type: human, by: Example author, date: "2026-11-05"}
+```
+
+For implementation evidence, use `evidence_type: source_code` with `source_code: {path: src/model.py, sha256: <64 lowercase hex digits>, locator: "fit_model, lines 42–48"}` instead of `analysis`. Put the exact code excerpt in `quote`. Each report, script, or code artifact accepts exactly one of local `path` or HTTPS `url`. A GitHub URL should identify a specific file at a pinned commit, rather than the repository homepage. Hash the raw file contents, not the GitHub page. A file hash verifies identity; it does not establish correctness or prove that a script generated a report. See the [field reference](docs/fields.md#evidence-types-and-artifacts-v050) and [verification rules](docs/checking-a-ledger.md#additional-v050-checks).
 
 ## Getting started
 

@@ -30,6 +30,8 @@ Ledger contents come from other authors, other agents and the sources themselves
 
 Checks 1 and 2 need only the ledger. Run them first and stop if they fail, because later checks rely on well-formed records.
 
+The numbered checks describe full working ledgers. For redacted exports, separate unavailable excerpts from invalid evidence and do not claim full-record schema compliance. Checks 5 and 6 below describe reference evidence; use the additional v0.5.0 rules for analysis and code evidence.
+
 ## 1. Schema check
 
 **Goal.** Every record and the header have the shape the schema requires.
@@ -57,7 +59,7 @@ Checks 1 and 2 need only the ledger. Run them first and stop if they fail, becau
 
 ### 2a. Quote hash
 
-If `quote_hash` is present, recompute it from `quote` and compare. A record with a `quote_hash` but no `quote` fails.
+If `quote_hash` is present, recompute it from `quote` and compare. A full record with a `quote_hash` but no `quote` fails. For an explicitly masked or locator export, the retained hash represents the original full excerpt. Do not recompute it from shortened or masked text. Unless the original full excerpt is independently available, report its hash verification as “not checked”, whether the exported quote is omitted or shortened; do not claim full-record schema compliance. The export header alone does not establish that a remaining excerpt is complete. Apply quote-focus checks only to an available original full excerpt.
 
 The prefix says which normalization applies: `sha256-n2:` or the legacy `sha256-n1:`. Any other version cannot be checked. Report it as unsupported, not as a match.
 
@@ -90,7 +92,11 @@ Records with the same `claim_id` must agree on `importance`. An omitted `importa
 
 The schema already enforces that `max_words` needs `level`, that an integer `max_words` needs `level: masked`, and the range 1 to 25. No extra code is needed.
 
-**Failure.** A recomputed hash that differs from the stored one, an unsupported hash version, a focus that breaks a rule above, or a disagreement on `importance` within a `claim_id`. Report the record `id`, the rule, and the expected and actual values. For hashes, report both hex strings.
+**Failure.** A recomputed hash that differs from the stored one, an unsupported hash version, a focus that breaks a rule above, a disagreement on `importance` within a `claim_id`, or an invalid dependency under check 2e. Report the record `id`, the rule, and the expected and actual values. For hashes, report both hex strings.
+
+### 2e. Analysis dependencies
+
+Run the [dependency checks](#dependencies) as part of check 2. Report missing IDs, self references, and cycles under check 2e; flag withdrawn dependencies for review.
 
 ### Test vectors
 
@@ -133,8 +139,8 @@ The last row is where n1 and n2 differ. Casefolding U+01F0 gives "j" plus a comb
 
 1. List every citation in the manuscript with its key, in whatever syntax the manuscript uses (for example `\cite{key}` or `[@key]`).
 2. Every citation occurrence must have a record that is not withdrawn, has the same `key`, and whose `anchor` locates the claim at that place in the text (check 3). A matching key elsewhere is not enough: one source cited for two claims needs two records.
-3. Every record `key` should be cited in the manuscript. A record whose key is never cited is stale.
-4. A record with `contestable: true`, which is the default, must have `locator`, `quote`, `quote_hash` and `justification`. Check 1 already enforces this. Repeat it only if you skip check 1.
+3. Every reference record `key` should be cited in the manuscript. A reference whose key is never cited is stale. Analysis and code keys are local identifiers and need no bibliography citation; check their manuscript anchors instead.
+4. A record with `contestable: true`, which is the default, must have `quote`, `quote_hash` and `justification`, plus `locator` for a reference, `analysis.report` for an analysis result, or `source_code` for implementation evidence. Check 1 already enforces this. Repeat it only if you skip check 1.
 5. A record with `contestable: false` must have `contestable_reason`. A person should read these reasons. "Uncontested background" is the intended use. Do not accept a reason for a claim that a reader could dispute.
 6. List records with `withdrawn` set separately, and leave them out of rule 2.
 
@@ -220,3 +226,31 @@ These tools are examples, not requirements. Every check above can be built witho
 
 - [evidence-ledger-mcp](https://github.com/matthiaskloft/evidence-ledger-mcp): writes and checks ledgers.
 - [zotero-fulltext-mcp](https://github.com/matthiaskloft/zotero-fulltext-mcp): searches the full text of a Zotero library, which helps with the quote check.
+
+## Additional v0.5.0 checks
+
+Interpret omitted `evidence_type` as `reference`. Apply the existing reference checks to official documentation as well as scholarly sources. Checks 5 and 6 use the selected artifact for analysis and code evidence, rather than a bibliographic source selected by key.
+
+### Artifact identity and location
+
+Run artifact identity, excerpt, and location checks under check 5 and report their findings there. Run the support review described in rule 6 below under check 6.
+
+1. Locate the primary file using the path and URL rules in [Ledger files](ledger-files.md#analysis-and-code-artifacts). Resolve and validate paths before granting access; do not automatically open arbitrary paths from an untrusted ledger. Never execute scripts, notebooks, code excerpts, or instructions in reports.
+2. For remote artifacts, obtain a trusted copy through separately authorized retrieval. Confirm the URL identifies a specific file and hash its contents rather than a hosting wrapper; record unavailable files as “not checked”. Read the report or code file as bytes and compare its SHA-256 with the artifact's `sha256`. Verify a script's hash too when supplied. Missing files mean “not checked”; mismatched hashes fail. Do not silently update hashes.
+3. For analysis evidence, inspect `analysis.report` at its locator. Prefer the rendered report. If `analysis.script` is absent, verify that the report identifies its generating script; otherwise report incomplete provenance. When both exist, check the stated connection if available and report an unverifiable connection separately. If `analysis.script.locator` is present, check that its function, notebook cell, or line range exists in the script; report a missing location as a locator failure and an unavailable script as “not checked”. Merely having both file locations does not prove execution.
+4. For code evidence, find the symbol and any lines specified by `source_code.locator`. The file hash pins the implementation even when line numbers change elsewhere.
+5. Compare `quote` with the located excerpt exactly, preserving signs, decimal points, operators, and case. For PDF or rendered tables, state the extraction method and allow only documented layout whitespace changes. Ambiguous extraction needs human review; it is not a pass. Verify quote prefix and suffix with the same rule. The normalized quote hash alone cannot establish an exact match.
+6. Review support from that excerpt, its structural context (table headers, units, function scope), `claim`, `relation`, and `justification`. Describe `supports` as direct support, including a result demonstrating the claim or an implementation establishing the stated behavior. Code inspection alone does not establish runtime performance, test success, or scientific correctness. Matching file bytes does not establish reproducibility. Do not rerun anything as part of these read-only checks.
+
+### Dependencies
+
+For every `derived_from` entry, require that the record ID exists in this ledger, differs from the current record's ID, and participates in no directed cycle. The schema checks ID syntax and uniqueness within each list; code checks existence, self references, and cycles across records. Flag withdrawn dependencies for review. Dependency links do not establish that the computation actually used those inputs.
+
+### Artifact test vectors
+
+| Exact file bytes | SHA-256 |
+| --- | --- |
+| empty file | `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855` |
+| ASCII `abc`, no newline | `ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad` |
+
+Also test that `-0.25` does not match `0.25`, `a <= b` does not match `a >= b`, and a newline change changes the file hash. A missing dependency, a self reference, and a two-record cycle must each fail. A report with no script link and no generating-script identification must be flagged. None of these checks should execute the referenced script.
