@@ -76,8 +76,8 @@ Where the source backs the claim, and how.
 | `quote_prefix`, `quote_suffix` | no, need `quote` | text | Source text right before or after the quote, to tell repeated passages apart. Removed from masked and locator exports. |
 | `quote_focus` | no, needs `quote` | text | The phrase within `quote` that carries the claim. Occurs exactly once, covers whole words, at most 25 words. |
 | `quote_hash` | if contestable | `sha256-n2:` plus 64 hex digits | Hash of the normalized quote, so the quote can be checked without being shared. See [quote hashing](ledger-files.md#quote-hashing). |
-| `relation` | yes | `supports`, `partially_supports`, `background`, `method`, `contrasts` | How the source relates to the claim. Contradicting evidence is recorded as `contrasts`, not dropped. |
-| `justification` | if contestable | text | Why the passage, result, or implementation backs the claim. |
+| `relation` | yes | `supports`, `partially_supports`, `background`, `method`, `contrasts` | How the source relates to the claim. Contradicting evidence is recorded as `contrasts`, not dropped. See [the definitions](checking-a-ledger.md#6-support-check). |
+| `justification` | if contestable | text | How the passage, result, or implementation relates to the claim, and why. For `partially_supports`, it names the missing part, the narrower condition or the qualification. |
 | `note` | no | text | Free comment. Exported, so never source text. |
 
 ## Retrieval
