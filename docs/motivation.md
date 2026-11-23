@@ -46,10 +46,24 @@ The table below lists the sources for the individual fields.
 | --- | --- |
 | `contestable` (full evidence for contestable claims) | Active citation: only citations that support contestable empirical points need full documentation, not background references to literature reviews, theoretical debates or uncontested facts (Moravcsik, 2014, pp. 50–51). We deviate here: a theoretical claim is contestable too, for example when another theory assumes something different, and then needs full evidence |
 | `anchor.exact`, `anchor.prefix`, `anchor.suffix`, `quote_prefix`, `quote_suffix` | W3C Web Annotation Text Quote Selector: a passage is identified by an exact copy plus the text before and after it (Sanderson et al., 2017, §4.2.4) |
-| `relation` | Loosely follows CiTO, the Citation Typing Ontology (Peroni & Shotton, 2012); the mapping onto CiTO terms is not yet checked. `supports` and `contrasts` also match scite's citation classes (Nicholson et al., 2021) |
+| `relation` | Loosely follows CiTO, the Citation Typing Ontology (Peroni & Shotton, 2012); see [the mapping](#relation-and-cito). `supports` and `contrasts` also match scite's citation classes (Nicholson et al., 2021) |
 | Claim, passage and justification in one record | Annotation for Transparent Inquiry links passages in a publication to annotations and underlying sources (Karcher & Weber, 2019) |
 | `provenance` | Records who asserted what and when, in the spirit of nanopublications (Groth et al., 2010); a record could be exported in that form |
 | `claim_id`, `importance`, `retrieved_via`, `found_via`, `quote_hash`, `no_identifier_reason`, `withdrawn`, `evidence_type`, `analysis`, `source_code`, `derived_from` | Our own proposals; to the best of our knowledge they do not follow an earlier source |
+
+#### `relation` and CiTO
+
+The CiTO properties in the table run from the citing to the cited work; their inverses (for example `cito:givesSupportTo`) run the other way. `relation` describes what a passage does for a claim. Our `supports` is therefore not `cito:supports`, which means that the citing work supports the cited one.
+
+| `relation` | CiTO | Fit |
+| --- | --- | --- |
+| `supports` | `cito:obtainsSupportFrom` | Good |
+| `partially_supports` | none | `cito:obtainsSupportFrom` loses "partially"; `cito:qualifies` means that the citing work restricts the cited one |
+| `background` | `cito:obtainsBackgroundFrom` | Good |
+| `method` | `cito:usesMethodIn` | Close: in CiTO the citing work uses the method, here the passage describes it |
+| `contrasts` | none | properties such as `cito:disagreesWith` and `cito:disputes` state the view of the citing work, `contrasts` states what the source says |
+
+The mapping was checked against the [CiTO ontology file](https://sparontologies.github.io/cito/2026-11-12/cito.ttl), version 2.9.2, on November 23, 2026.
 
 #### References
 
