@@ -2,12 +2,12 @@
 
 Schema releases are independent of MCP server releases and use `schema-vX.Y.Z` tags.
 
-## Unreleased
+## [0.5.2] - Unreleased
 
 - Define each `relation` value in the checking guide, its review prompt template and, by link, the field reference. A passage that only qualifies a claim, without conflicting with it, is now `partially_supports`; `contrasts` covers only passages that conflict with the claim.
 - For `partially_supports`, the `justification` names the missing part, the narrower condition or the qualification.
 - Document the mapping of `relation` onto CiTO, checked against the ontology file.
-- The schema file and its validation rules are unchanged from v0.5.1. The meaning of `contrasts` is narrower: existing records that use it for a passage that only qualifies a claim should be reviewed.
+- Update the schema identifier and title for this patch release; validation rules are unchanged from v0.5.1. The meaning of `contrasts` is narrower: existing records that use it for a passage that only qualifies a claim should be reviewed.
 
 ## [0.5.1] - 2026-11-05
 
